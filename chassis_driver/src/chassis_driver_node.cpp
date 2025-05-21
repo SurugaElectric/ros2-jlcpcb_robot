@@ -62,8 +62,9 @@ void ChassisDriver::_subscriber_callback_vel(const geometry_msgs::msg::Twist::Sh
     // 並進の処理
     const double linear_length = std::sqrt(this->prime_vel.linear.x*this->prime_vel.linear.x + this->prime_vel.linear.y*this->prime_vel.linear.y);
     if(linear_length > linear_max_vel){
-        this->prime_vel.linear.x *= linear_length / linear_max_vel;
-        this->prime_vel.linear.y *= linear_length / linear_max_vel;
+        const double scale = linear_max_vel / linear_length;
+        this->prime_vel.linear.x *= scale;
+        this->prime_vel.linear.y *= scale;
     }
     // 上のスカラー制限処理で問題ないが，最終的なフィルターとして置いておく
     const double vx_p = constrain(this->prime_vel.linear.x, -linear_max_vel, linear_max_vel);
@@ -72,7 +73,7 @@ void ChassisDriver::_subscriber_callback_vel(const geometry_msgs::msg::Twist::Sh
     std::array<double, 4> wheel_vel;
 
     /*速度の計算*/
-    wheel_vel[0] = (vx_p*sqrt2over2 + vy_p*sqrt2over2 - attached_direction * omega);    //cos45とsin45はsqrt(2)/2なため
+    wheel_vel[0] = (vx_p*sqrt2over2 + vy_p*sqrt2over2 - attached_direction * omega);
     wheel_vel[1] = (-vx_p*sqrt2over2 + vy_p*sqrt2over2 - attached_direction * omega);
     wheel_vel[2] = (-vx_p*sqrt2over2 - vy_p*sqrt2over2 - attached_direction * omega);
     wheel_vel[3] = (vx_p*sqrt2over2 - vy_p*sqrt2over2 - attached_direction * omega);
