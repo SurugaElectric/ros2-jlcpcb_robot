@@ -10,7 +10,7 @@ def generate_launch_description():
         'config',
         'params.yaml'
     )
-    # メイン実行機ノードの作成
+    # 手動制御ノードの作成
     execute_node = Node(
         package = 'chassis_driver',
         executable = 'executor',

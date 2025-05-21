@@ -1,12 +1,12 @@
 chassis_driver_node:
   ros__parameters:
-    wheel_radius : 0.03 # 車輪半径
-    attached_direction : 0.200343 # 車輪の取り付け半径
+    wheel_radius : 0.03 # 車輪半径[m]
+    attached_direction : 0.1928427125 # 車輪の取り付け半径[m]
     stop_canid : 0x100
     restart_canid : 0x101
     velocity_canid : 0x108
-    linear_max_vel: 0.5 # 最大並進速度[m/s]
-    angular_max_vel: 30.0 # 最大回転速度[deg/s]
+    linear_max_vel: 1.0 # 最大並進速度[m/s]
+    angular_max_vel: 60.0 # 最大回転速度[deg/s]
 
 socketcan_interface_node:
   ros__parameters:
@@ -18,12 +18,12 @@ teleop_twist_joy_node:
       x: 1  # ボタンの割り当て
       y: 0  # ボタンの割り当て
     scale_linear:
-      x: 0.5
-      y: 0.5
+      x: 1.0
+      y: 1.0
 
     axis_angular:
       yaw: 2  # ボタンの割り当て
     scale_angular:
-      yaw: 0.5  # 約30度
+      yaw: 1.0  # 約30度
 
     enable_button: 6
